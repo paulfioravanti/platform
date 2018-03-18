@@ -1,19 +1,23 @@
 defmodule Platform.Accounts.Player do
   use Ecto.Schema
   import Ecto.Changeset
-
+  alias Platform.Accounts.Player
 
   schema "players" do
-    field :score, :integer
-    field :username, :string
+    field(:display_name, :string)
+    field(:password, :string, virtual: true)
+    field(:password_digest, :string)
+    field(:score, :integer, default: 0)
+    field(:username, :string, unique: true)
 
     timestamps()
   end
 
   @doc false
-  def changeset(player, attrs) do
+  def changeset(%Player{} = player, attrs) do
     player
-    |> cast(attrs, [:username, :score])
-    |> validate_required([:username, :score])
+    |> cast(attrs, [:display_name, :password, :score, :username])
+    |> validate_required([:username])
+    |> unique_constraint(:username)
   end
 end

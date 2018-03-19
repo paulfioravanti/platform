@@ -7,38 +7,52 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Platform!</title>
+    <title>Platform</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <header class="header">
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
             <%= if @current_user do %>
-              <p class="small">
-                Signed in as <strong><%= @current_user.username %></strong>
+              <p class="navbar-text">
+                Signed in as
+                <strong>
+                  <%= link @current_user.username,
+                           to: player_path(@conn, :edit, @current_user) %>
+                </strong>
               </p>
-              <%= link "Sign Out",
-                       to: player_session_path(@conn, :delete, @current_user),
-                       method: "delete",
-                       class: "btn btn-sm btn-danger" %>
+              <span>
+                <%= link "Sign Out",
+                         to: player_session_path(@conn, :delete, @current_user),
+                         method: "delete",
+                         class: "btn btn-navbar-btn btn-danger" %>
+              </span>
             <% else %>
               <%= link "Sign Up",
                        to: player_path(@conn, :new),
-                       class: "btn btn-sm btn-success" %>
+                       class: "btn btn-navbar-btn btn-success" %>
               <%= link "Sign In",
                        to: player_session_path(@conn, :new),
-                       class: "btn btn-sm btn-primary" %>
+                       class: "btn btn-navbar-btn btn-primary" %>
             <% end %>
           </ul>
         </nav>
-        <span class="logo"></span>
+        <%= link "Platform", to: page_path(@conn, :index), class: "logo" %>
       </header>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= if info_flash = get_flash(@conn, :info) do %>
+        <p class="alert alert-info" role="alert">
+          <%= info_flash %>
+        </p>
+      <% end %>
+      <%= if error_flash = get_flash(@conn, :error) do %>
+        <p class="alert alert-danger" role="alert">
+          <%= error_flash %>
+        </p>
+      <% end %>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>

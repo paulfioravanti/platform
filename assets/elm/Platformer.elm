@@ -37,6 +37,7 @@ type alias Model =
     { characterDirection : Direction
     , characterPositionX : Int
     , characterPositionY : Int
+    , gameState : GameState
     , itemPositionX : Int
     , itemPositionY : Int
     , itemsCollected : Int
@@ -50,6 +51,7 @@ initialModel =
     { characterDirection = Right
     , characterPositionX = 50
     , characterPositionY = 300
+    , gameState = StartScreen
     , itemPositionX = 500
     , itemPositionY = 300
     , itemsCollected = 0

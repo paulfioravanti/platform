@@ -46,12 +46,13 @@ exports.config = {
   plugins: {
     babel: {
       // Do not use ES6 compiler in vendor code
-      ignore: [/vendor/, "js/main.js"]
+      ignore: [/vendor/, "js/elm.js"]
     },
     elmBrunch: {
-      mainModules: ["elm/Main.elm"],
+      mainModules: ["elm/Main.elm", "elm/Platformer.elm"],
       makeParameters: ["--debug"],
-      outputFolder: "../assets/js"
+      outputFolder: "../assets/js",
+      outputFile: "elm.js"
     }
   },
 

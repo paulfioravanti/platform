@@ -6,9 +6,27 @@ defmodule Platform.ProductsTest do
   describe "games" do
     alias Platform.Products.Game
 
-    @valid_attrs %{description: "some description", featured: true, thumbnail: "some thumbnail", title: "some title"}
-    @update_attrs %{description: "some updated description", featured: false, thumbnail: "some updated thumbnail", title: "some updated title"}
-    @invalid_attrs %{description: nil, featured: nil, thumbnail: nil, title: nil}
+    @valid_attrs %{
+      description: "some description",
+      featured: true,
+      slug: "some slug",
+      thumbnail: "some thumbnail",
+      title: "some title"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      featured: false,
+      slug: "some slug",
+      thumbnail: "some updated thumbnail",
+      title: "some updated title"
+    }
+    @invalid_attrs %{
+      description: nil,
+      featured: nil,
+      slug: nil,
+      thumbnail: nil,
+      title: nil
+    }
 
     def game_fixture(attrs \\ %{}) do
       {:ok, game} =
@@ -53,7 +71,10 @@ defmodule Platform.ProductsTest do
 
     test "update_game/2 with invalid data returns error changeset" do
       game = game_fixture()
-      assert {:error, %Ecto.Changeset{}} = Products.update_game(game, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Products.update_game(game, @invalid_attrs)
+
       assert game == Products.get_game!(game.id)
     end
 
@@ -96,12 +117,15 @@ defmodule Platform.ProductsTest do
     end
 
     test "create_gameplay/1 with valid data creates a gameplay" do
-      assert {:ok, %Gameplay{} = gameplay} = Products.create_gameplay(@valid_attrs)
+      assert {:ok, %Gameplay{} = gameplay} =
+               Products.create_gameplay(@valid_attrs)
+
       assert gameplay.player_score == 42
     end
 
     test "create_gameplay/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Products.create_gameplay(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} =
+               Products.create_gameplay(@invalid_attrs)
     end
 
     test "update_gameplay/2 with valid data updates the gameplay" do
@@ -113,14 +137,20 @@ defmodule Platform.ProductsTest do
 
     test "update_gameplay/2 with invalid data returns error changeset" do
       gameplay = gameplay_fixture()
-      assert {:error, %Ecto.Changeset{}} = Products.update_gameplay(gameplay, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Products.update_gameplay(gameplay, @invalid_attrs)
+
       assert gameplay == Products.get_gameplay!(gameplay.id)
     end
 
     test "delete_gameplay/1 deletes the gameplay" do
       gameplay = gameplay_fixture()
       assert {:ok, %Gameplay{}} = Products.delete_gameplay(gameplay)
-      assert_raise Ecto.NoResultsError, fn -> Products.get_gameplay!(gameplay.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Products.get_gameplay!(gameplay.id)
+      end
     end
 
     test "change_gameplay/1 returns a gameplay changeset" do

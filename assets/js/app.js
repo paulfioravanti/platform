@@ -29,5 +29,5 @@ if (elmContainer) {
 }
 
 if (platformer) {
-  Elm.Main.embed(platformer);
+  Elm.Platformer.embed(platformer);
 }

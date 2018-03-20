@@ -29,5 +29,5 @@ if (elmContainer) {
 }
 
 if (platformer) {
-  Elm.Platformer.embed(platformer);
+  Elm.Platformer.embed(platformer, { token: window.userToken });
 }

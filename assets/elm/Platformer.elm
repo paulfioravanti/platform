@@ -22,6 +22,13 @@ main =
         }
 
 
+type GameState
+    = StartScreen
+    | Playing
+    | Success
+    | GameOver
+
+
 
 -- MODEL
 
